@@ -1,6 +1,6 @@
 #include<iostream>
 #include<cstring>
-
+#include<math>
 using namespace std;
 
 //'Welcome' fucntion is start of the program
