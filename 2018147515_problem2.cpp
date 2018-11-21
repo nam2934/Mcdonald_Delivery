@@ -1,10 +1,12 @@
 #include<iostream>
 #include<cstring>
+
 using namespace std;
 
 //'Welcome' fucntion is start of the program
 //user can selct menu
 void Welcome(){
+    cout << "a";
     //print Mcdonals Delivery System
     cout << "-----------------------------------" << endl
     << "-----Mcdonalds Delivery System-----" << endl
