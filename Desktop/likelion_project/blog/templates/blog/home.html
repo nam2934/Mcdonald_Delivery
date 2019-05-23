@@ -1,0 +1,143 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Full Width Pics - Start Bootstrap Template</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="{% static 'blog/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="{% static 'blog/css/full-width-pics.css' %}" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Black+Han+Sans" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container">
+        <a class="navbar-brand" href="#" style="font-family: 'Black Han Sans', sans-serif;">신촌 TMI 지도</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home
+                <span class="sr-only">(current)</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">About</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Services</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Contact</a>
+            </li>
+            </ul>
+        </div>
+        </div>
+    </nav>
+
+    <section class="py-5 bg-image-full">
+    <!-- Put anything you want here! There is just a spacer below for demo purposes! -->
+        <div id="map" style="height: 600px;"></div>
+    </section>
+
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=5a709e08380f8e49d6f03f22ee612f53"></script>
+    <script>
+    var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+        mapOption = { 
+            center: new daum.maps.LatLng(37.560922, 126.932138), // 지도의 중심좌표
+            level: 3 // 지도의 확대 레벨
+        };
+
+    var map = new daum.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+    var positions = [
+        {
+            content1: "서대문우체국 개방화장실",
+            content2: "서울 서대문구 성산로20길",
+            content3: "(우)03727 (지번) 창천동 98-3",
+            content4: "https://place.map.kakao.com/26334007",
+            latlng: new daum.maps.LatLng(37.560922, 126.932138)
+        },
+        {
+            content1: "연대앞공중화장실",
+            content2: "서울 서대문구 창천동 84-45",
+            content3: "",
+            content4: "https://place.map.kakao.com/454294194",
+            latlng: new daum.maps.LatLng(37.560327, 126.934175)
+        },
+        {
+            content1: "맥도널드 연대점 개방화장실",
+            content2: "서울 서대문구 연세로 33",
+            content3: "(우) 0378 (지번) 창천동 33-12",
+            content4: "https://place.map.kakao.com/26334449",
+            latlng: new daum.maps.LatLng(37.558520, 126.936695)
+        }
+    ]
+    positions.forEach(function(pos, index) {
+        var marker = new daum.maps.Marker({
+          map: map, 
+          position: pos.latlng
+        });
+
+        var content = document.createElement("div");
+        content.setAttribute("class","card border-light mb-3");
+        content.setAttribute("style","width: 300px;");
+        var info_1 = document.createElement("div");
+        var card_body = document.createElement("div");
+        var info_2 = document.createElement("h6");
+        var info_3 = document.createElement("p");
+        var link = document.createElement("a");
+        info_1.setAttribute("class","card-header");
+        info_2.setAttribute("class","card-title");
+        info_1.setAttribute("style","text-align:center; font-size: 18px; font-weight:bold;")
+        info_3.setAttribute("class","card-text");
+        link.setAttribute("class","card-text");
+        link.setAttribute("href",pos.content4);
+        card_body.setAttribute("class","card-body");
+        card_body.appendChild(info_2);
+        card_body.appendChild(info_3);
+        card_body.appendChild(link);
+        info_1.appendChild(document.createTextNode(pos.content1));
+        info_2.appendChild(document.createTextNode(pos.content2));
+        info_3.appendChild(document.createTextNode(pos.content3));
+        link.appendChild(document.createTextNode("더보기"));
+        content.appendChild(info_1);
+        content.appendChild(card_body);
+        var closeBtn = document.createElement('button');
+        closeBtn.setAttribute("class","btn btn-outline-light");
+        closeBtn.appendChild(document.createTextNode('닫기'));
+        closeBtn.onclick = function() { overlay.setMap(null); };
+        content.appendChild(closeBtn);
+        
+        var overlay = new daum.maps.CustomOverlay({
+            content: content,
+            position: pos.latlng,
+            yAnchor: 1.15,
+        });
+
+        daum.maps.event.addListener(marker, 'click', function() {
+            overlay.setMap(map);
+        });
+    });
+
+    </script>
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center text-white">Copyright &copy; SINCHON TMI MAP 2019</p>
+        </div>
+    <!-- /.container -->
+    </footer>
+    <script src="{% static 'blog/vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'blog/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+</body>
+</html>
